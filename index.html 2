@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulaire Médical</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    #medicalForm {
+      display: none; /* caché au départ */
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bienvenue</h2>
+  <button id="startBtn">Start</button>
+
+  <!-- Formulaire caché -->
+  <div id="medicalForm">
+    <h3>Champs Médicaux</h3>
+    <label>Nom :
+      <input type="text" name="nom">
+    </label>
+    <label>Âge :
+      <input type="number" name="age">
+    </label>
+    <label>Groupe sanguin :
+      <input type="text" name="sang">
+    </label>
+    <label>Antécédents médicaux :
+      <input type="text" name="antecedents">
+    </label>
+    <button type="submit">Envoyer</button>
+  </div>
+
+  <script>
+    // Quand on clique sur Start, on affiche le formulaire
+    document.getElementById("startBtn").addEventListener("click", function() {
+      document.getElementById("medicalForm").style.display = "block";
+    });
+  </script>
+</body>
+</html>

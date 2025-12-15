@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    :root {
+  --bg-image: url("/img3.webp");
+  --glass: rgba(255,255,255,0.12);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+
+  /* IMAGE VISIBLE EN ENTIER */
+  background-image: url("/img3.webp");
+  background-size: cover;        /* ou contain si tu veux voir toute l'image */
+  background-repeat: no-repeat;
+  background-position: center top;
+
+  /* <-- FIXE LE FOND -->
+     L'image ne bougera pas quand on scroll */
+  background-attachment: fixed;
+
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+
+</style>
+<body>
+<section class="form-section">
+  <h2>Formulaire d’Enregistrement – Femme Enceinte</h2>
+
+  <form id="pregnancyForm">
+
+    <!-- 1 -->
+    <label>Nom complet :</label>
+    <input type="text" name="nom" required>
+
+    <!-- 2 -->
+    <label>Âge :</label>
+    <input type="number" name="age" min="10" max="55" required>
+
+    <!-- 3 -->
+    <label>Date des dernières règles (DDR) :</label>
+    <input type="date" name="ddr" required>
+
+    <!-- 4 -->
+    <label>Numéro de téléphone :</label>
+    <input type="tel" name="phone" required>
+
+    <!-- 5 -->
+    <label>Adresse complète :</label>
+    <input type="text" name="adresse" required>
+
+    <!-- 6 -->
+    <label>Nombre de grossesses précédentes :</label>
+    <input type="number" name="gravite" min="0">
+
+    <!-- 7 -->
+    <label>Nombre d’enfants vivants :</label>
+    <input type="number" name="parite" min="0">
+
+    <!-- 8 -->
+    <label>Antécédents médicaux :</label>
+    <textarea name="antecedents" placeholder="Hypertension, diabète, drépanocytose…"></textarea>
+
+    <!-- 9 -->
+    <label>Allergies connues :</label>
+    <textarea name="allergies"></textarea>
+
+    <!-- 10 -->
+    <label>Groupe sanguin :</label>
+    <select name="groupe">
+      <option value="">Sélectionner</option>
+      <option>A+</option><option>A-</option>
+      <option>B+</option><option>B-</option>
+      <option>AB+</option><option>AB-</option>
+      <option>O+</option><option>O-</option>
+    </select>
+
+    <!-- 11 -->
+    <label>Poids actuel (kg) :</label>
+    <input type="number" name="poids" min="20" max="200">
+
+    <!-- 12 -->
+    <label>Taille (cm) :</label>
+    <input type="number" name="taille" min="120" max="220">
+
+    <!-- 13 -->
+    <label>Présence de douleurs abdominales ?</label>
+    <select name="douleurs">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 14 -->
+    <label>Présence de saignements ?</label>
+    <select name="saignements">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 15 -->
+    <label>Antécédents d’accouchement difficile ?</label>
+    <select name="accouchement_diff">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 16 -->
+    <label>Antécédents de césarienne ?</label>
+    <select name="cesarienne">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 17 -->
+    <label>Tabagisme ou alcool pendant la grossesse ?</label>
+    <select name="habitudes">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 18 -->
+    <label>Suivi prénatal déjà en cours ?</label>
+    <select name="suivi">
+      <option>Non</option>
+      <option>Oui</option>
+    </select>
+
+    <!-- 19 -->
+    <label>Médicaments actuellement pris :</label>
+    <textarea name="medicaments"></textarea>
+
+    <!-- 20 -->
+    <label>Remarques supplémentaires :</label>
+    <textarea name="notes"></textarea>
+
+
+    <button type="submit" class="btn">Enregistrer</button>
+
+  </form>
+</section>
+
+    
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+  // 🔹 CONFIG FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyCqvyhUYV84Qhe8nETv0pcg1_rmDosiHJw",
+    authDomain: "nala-3631c.firebaseapp.com",
+    projectId: "nala-3631c",
+    storageBucket: "nala-3631c.firebasestorage.app",
+    messagingSenderId: "232112777960",
+    appId: "1:232112777960:web:cce1dea4e9d63e28be775d"
+  };
+
+  // 🔹 INIT FIREBASE
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app); // ✅ MANQUANT AVANT
+
+  // 🔹 FORMULAIRE
+  const form = document.getElementById("pregnancyForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const f = new FormData(form);
+
+    const data = {
+      nom: f.get("nom").trim(),
+      age: Number(f.get("age")),
+      ddr: new Date(f.get("ddr")),
+      phone: f.get("phone").trim(),
+      adresse: f.get("adresse").trim(),
+
+      gravite: Number(f.get("gravite") || 0),
+      parite: Number(f.get("parite") || 0),
+
+      antecedents: f.get("antecedents").trim(),
+      allergies: f.get("allergies").trim(),
+      groupe: f.get("groupe"),
+
+      poids: Number(f.get("poids") || 0),
+      taille: Number(f.get("taille") || 0),
+
+      douleurs: f.get("douleurs") === "Oui",
+      saignements: f.get("saignements") === "Oui",
+      accouchement_diff: f.get("accouchement_diff") === "Oui",
+      cesarienne: f.get("cesarienne") === "Oui",
+      habitudes: f.get("habitudes") === "Oui",
+      suivi: f.get("suivi") === "Oui",
+
+      medicaments: f.get("medicaments").trim(),
+      notes: f.get("notes").trim(),
+
+      createdAt: serverTimestamp()
+    };
+
+    try {
+      await addDoc(collection(db, "grossesses"), data);
+      alert("Enregistrement réussi ✅");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de l'enregistrement ❌");
+    }
+  });
+</script>
+
+
+</html>

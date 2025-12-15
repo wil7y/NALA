@@ -1,0 +1,456 @@
+/* ---------------- GLOBAL ---------------- */
+:root {
+  --bg-image: url("background.jpg");
+  --glass: rgba(255,255,255,0.12);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px; /* ou ajuster selon la hauteur du header */
+
+
+  /* IMAGE VISIBLE EN ENTIER */
+  background-image: var(--bg-image);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+
+/* ---------------- HEADER ---------------- */
+.header {
+  width: 90%;          /* réduit la largeur de la barre */
+  max-width: 1200px;   /* largeur maximale */
+  margin: 0 auto;      /* centre la barre */
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(8, 8, 8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  border-radius: 12px; /* optionnel : coins arrondis */
+}
+
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* BURGER MOBILE */
+.burger {
+  width: 40px;
+  height: 40px;
+  background: var(--glass);
+  padding: 6px;
+  border-radius: 6px;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.burger span {
+  background: white;
+  height: 4px;
+  margin: 3px 0;
+  border-radius: 4px;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 80vh; /* ajuste selon besoin */
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-top: 64px; /* correspond à la hauteur du header */
+
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* pour donner un effet de parallaxe léger : */
+  transform: scale(1.1);
+  transition: transform 1.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide.active img {
+  transform: scale(1);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Optionnel : un overlay sombre pour améliorer le contraste */
+.hero::before {
+  content: "";
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.4);
+  z-index:1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+
+.hero
+    .btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 40px;
+
+  background: linear-gradient(135deg, #007bff, #0056d6);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 80, 200, 0.3);
+
+  /* Animation interne */
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80px;
+  width: 80px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: skewX(-25deg);
+  transition: 0.4s;
+}
+
+.btn:hover::before {
+  left: 120%;
+}
+
+.btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 16px rgba(0, 80, 200, 0.5);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+
+/* ---------------- SECTIONS ---------------- */
+.section {
+  padding: 60px 20px;
+  background: rgba(0,0,0);
+}
+
+.section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* FEATURES GRID */
+.features-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.feature-card {
+  background: rgba(8, 8, 8, 0.959);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  backdrop-filter: blur(4px);
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+}
+
+/* ---------------- RESPONSIVE MOBILE ---------------- */
+@media(max-width: 800px) {
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    border-radius: 10px;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
+
+#patient-fields {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+#patientForm label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+#patientForm input,
+#patientForm select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Bouton moderne Start */
+#startBtn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* ------- TRANSITION LOADING ------- */
+.loading-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,20,0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s ease;
+  z-index: 9999;
+}
+
+.loading-screen p {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+/* cercle animé */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #00c3ff50;
+  border-top-color: #00c3ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------- FORMULAIRE MODERNE THÈME NOIR/BLANC ---------------- */
+.form-section {
+  width: 90%;
+  max-width: 450px;
+  margin: 80px auto;
+  background: rgba(0, 0, 0, 0.7); /* fond sombre semi-transparent */
+  padding: 35px 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.form-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* Labels */
+form label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #eee;
+}
+
+/* Inputs, selects, textarea */
+form input,
+form select,
+form textarea {
+  width: 90%;
+  padding: 14px 18px;
+  margin-top: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05); /* léger contraste blanc */
+  color: #fff;
+  font-size: 15px;
+  font-family: "Times New Roman", serif;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Focus moderne */
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 10px #fff;
+  transform: scale(1.02);
+}
+
+/* Textarea */
+textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+/* Bouton du formulaire */
+form .btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #fff; /* blanc */
+  color: #000; /* texte noir */
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  border: none;
+}
+
+/* Bouton hover */
+form .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
+  background: #eee;
+}
+
+/* Responsive pour mobiles */
+@media(max-width: 768px) {
+  .form-section {
+    padding: 25px 20px;
+  }
+
+  form label {
+    font-size: 14px;
+  }
+
+  form input,
+  form select,
+  form textarea {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  form .btn {
+    font-size: 16px;
+    padding: 14px;
+  }
+}
+
+.patient-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f9f9f9;
+}
