@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page d'accueil</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Favicon classique -->
+<link rel="icon" type="image/png" href="img 3.webp.jpg">
+
+
+
 </head>
 
 <body>
@@ -22,10 +27,27 @@
       <a href="#about">À propos</a>
     </nav>
 
-    <div id="burger" class="burger">
-      <span></span><span></span><span></span>
-    </div>
+       <div id="burger" class="burger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<nav class="mobile-menu">
+  <a href="#hero">Accueil</a>
+  <a href="#features">Fonctionnalités</a>
+  <a href="#about">À propos</a>
+</nav>
+
+
+
+
+ 
+
   </header>
+  
+<!-- Overlay pour fermer en cliquant dehors -->
+<div id="overlay" class="overlay"></div>
 
   <!-- ---------------- HERO ---------------- -->
   <section id="hero" class="hero">
@@ -43,20 +65,23 @@
   <div class="hero-content">
     <h1>Welcome to NALA</h1>
     <p>Neonatal assistant life and awareness for mums and babes</p>
-    <button class="btn" id="startBtn">Start</button>
-  
+    <button class="btn btn-primary">Start</button>
+<!--<button class="btn btn-secondary">Annuler</button>
+<button class="btn btn-ghost">Menu</button>-->
+
+
 
 <!-- LOADING SCREEN -->
-<div id="loadingScreen" class="loading-screen">
+<!--<div id="loadingScreen" class="loading-screen">
     <div class="loader"></div>
     <p>Loading...</p>
-</div>
+</div>-->
 
 </section>
 
 
   <!-- ---------------- FEATURES ---------------- -->
-  <section id="features" class="section">
+  <section id="features" class="features section">
     <h2>Fonctionnalités</h2>
 
     <div class="features-grid">
@@ -64,9 +89,9 @@
       <div class="feature-card">✔ SpO2</div>
       <div class="feature-card">✔ temperature maternelle</div>
       <div class="feature-card">✔ glycemie</div>
-      <div class="feature-card"> age</div>
-      <div class="feature-card">date des dernieres regles</div>
-      <div class="feature-card">numero d'urgence</div>
+      <div class="feature-card">✔ age</div>
+      <div class="feature-card">✔ date des dernieres regles</div>
+      <div class="feature-card">✔ numero d'urgence</div>
     </div>
   </section>
 
@@ -76,9 +101,74 @@
     <p>Cette page d’accueil est découpée en sections pour représenter un vrai site web.</p>
   </section>
 
-  <!-- ---------------- FOOTER ---------------- -->
-  <footer class="footer">
-    © 2025 — Mon App Web
-  </footer>
+  <!-- Loading Screen -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="dots">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
 
+
+</body>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer-top">
+    <!-- Logo & slogan -->
+    <div class="footer-brand">
+      <img src="img 3.webp.jpg" alt="Logo NALA" class="footer-logo">
+      <span class="footer-slogan">Neonatal Life Assistant</span>
+    </div>
+
+    <!-- Navigation rapide -->
+    <div class="footer-nav">
+      <h3>Liens rapides</h3>
+      <ul>
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#features">Fonctionnalités</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <p>Abonnez-vous pour recevoir nos dernières mises à jour</p>
+      <form id="newsletterForm">
+        <input type="email" placeholder="Votre email" required>
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+      </form>
+    </div>
+
+    <!-- Réseaux sociaux -->
+    <div class="footer-social">
+      <h3>Suivez-nous</h3>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><img src="facebook-svgrepo-com.svg" alt="Facebook"></a>
+        <a href="#" aria-label="X"><img src="twitter-svgrepo-com.svg" alt="X"></a>
+        <a href="#" aria-label="LinkedIn"><img src="linkedin-svgrepo-com.svg" alt="LinkedIn"></a>
+        <a href="#" aria-label="Instagram"><img src="instagram-svgrepo-com (1).svg" alt="Instagram"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Localisation -->
+  <div class="map-container">
+    <h3>Notre localisation</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15919.613307742511!2d9.7790234!3d4.040147900000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1766016006239!5m2!1sfr!2scm" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+  </div>
+
+  <!-- Bas du footer -->
+  <div class="footer-bottom">
+    <p>© 2025 NALA. Tous droits réservés.</p>
+  </div>
+</footer>
+
+  
   <script src="script.js"></script>
+
+</html>

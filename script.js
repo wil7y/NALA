@@ -1,21 +1,36 @@
-// --- MENU BURGER ---
-const burger = document.getElementById("burger");
-const nav = document.querySelector(".nav");
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.getElementById("burger");
+  const menu = document.querySelector(".mobile-menu");
+  const overlay = document.getElementById("overlay");
+  const links = document.querySelectorAll(".mobile-menu a");
 
-burger.addEventListener("click", () => {
-  if (nav.style.display === "flex") {
-    nav.style.display = "none";
-  } else {
-    nav.style.display = "flex";
+  function toggleMenu() {
+    burger.classList.toggle("active");
+    menu.classList.toggle("active");
+    overlay.classList.toggle("active");
   }
+
+  // ouverture/fermeture burger
+  burger.addEventListener("click", toggleMenu);
+
+  // fermeture en cliquant sur l'overlay
+  overlay.addEventListener("click", toggleMenu);
+
+  // fermeture en cliquant sur un lien
+  links.forEach(link => {
+    link.addEventListener("click", toggleMenu);
+  });
 });
 
 
+
+
+/* -------------------- HERO SLIDER -------------------- */
 document.addEventListener("DOMContentLoaded", function() {
   const slides = document.querySelectorAll(".slide");
   let current = 0;
   const slideCount = slides.length;
-  const intervalTime = 5000;
+  const intervalTime = 5000; // 5s
 
   function goToSlide(index) {
     slides.forEach((slide, i) => {
@@ -34,37 +49,17 @@ document.addEventListener("DOMContentLoaded", function() {
   // Lancer automatiquement
   setInterval(nextSlide, intervalTime);
 
-  // Optionnel : initialiser la première slide
+  // Initialiser la première slide
   goToSlide(current);
 });
 
+const startBtn = document.querySelector('.btn-primary');
+const loadingScreen = document.getElementById('loadingScreen');
 
+startBtn.addEventListener('click', () => {
+  loadingScreen.classList.add('active');
 
-let currentIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const totalSlides = slides.length;
-
-function showSlide(index) {
-  const slider = document.querySelector('.slider');
-  slider.style.transform = `translateX(-${index * 100}%)`;
-}
-
-function nextSlide() {
-  currentIndex = (currentIndex + 1) % totalSlides;
-  showSlide(currentIndex);
-}
-
-document.getElementById("startBtn").addEventListener("click", () => {
-
-  const loader = document.getElementById("loadingScreen");
-
-  // afficher l'écran de transition
-  loader.style.opacity = "1";
-  loader.style.pointerEvents = "all";
-
-  // après 1 seconde → redirection
   setTimeout(() => {
-    window.location.href = "vitals.html";  // mets la page où tu veux aller
-  }, 1000);
+    window.location.href = "vitals.html";
+  }, 2000); // redirection après 2 secondes
 });
-

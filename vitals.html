@@ -4,33 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img 3.webp.jpg">
 </head>
 <style>
-    :root {
+:root {
   --bg-image: url("/img3.webp");
-  --glass: rgba(255,255,255,0.12);
+  --accent: #00bfff;
+  --glass: rgba(18,18,18,0.85);
+  --text: #fff;
+  --input-bg: rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.3);
+  --success: #4CAF50;
+  --error: #FF5252;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding-top: 64px;
-
-  /* IMAGE VISIBLE EN ENTIER */
-  background-image: url("/img3.webp");
-  background-size: cover;        /* ou contain si tu veux voir toute l'image */
-  background-repeat: no-repeat;
-  background-position: center top;
-
-  /* <-- FIXE LE FOND -->
-     L'image ne bougera pas quand on scroll */
+  font-family: 'Inter', sans-serif;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 10px;
+  min-height: 100vh;
+}
 
-  font-family: 'Times New Roman', Times, serif;
-  color: white;
+.form-section {
+  width: 100%;
+  max-width: 400px;
+  background: var(--glass);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0,191,255,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.form-step { display: none; flex-direction: column; gap: 15px; }
+.form-step.active { display: flex; animation: fadeIn 0.5s ease; }
+
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0,191,255,0.5);
+}
+
+textarea { min-height: 60px; resize: vertical; }
+
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--accent);
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+button:hover { box-shadow: 0 0 15px var(--accent); transform: translateY(-2px); }
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* =================== VALIDATION =================== */
+input.valid { border-color: var(--success); box-shadow: 0 0 8px var(--success); }
+input.invalid { border-color: var(--error); box-shadow: 0 0 8px var(--error); animation: shake 0.4s; }
+
+@keyframes shake {
+  0%,100%{ transform: translateX(0); }
+  25%{ transform: translateX(-4px); }
+  50%{ transform: translateX(4px); }
+  75%{ transform: translateX(-4px); }
+}
+
+@keyframes fadeIn { from{ opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+/* =================== LOADING SCREEN =================== */
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2000;
+}
+#loadingScreen.active { opacity:1; pointer-events: all; }
+
+.dots span {
+  display: inline-block;
+  width: 12px; height: 12px;
+  margin: 0 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+.dots span:nth-child(2){ animation-delay:0.2s; }
+.dots span:nth-child(3){ animation-delay:0.4s; }
+
+@keyframes bounce { from{transform:translateY(0);} to{transform:translateY(-12px);} }
+
+/* =================== RESPONSIVE =================== */
+@media (max-width: 480px) {
+  .form-section { padding: 20px; }
+  h2 { font-size: 1.4rem; }
+  input, select, textarea { font-size: 0.9rem; padding: 10px 12px; }
+  button { padding: 10px; font-size: 0.9rem; }
 }
 
 </style>
@@ -152,6 +285,7 @@ body {
 
     
 </body>
+
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
